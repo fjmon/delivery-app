@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setDisabled] = useState(true);
+  const [error, setError] = useState(null);
 
   const MIN_LENGTH_PASSWORD = 6;
 
@@ -29,6 +32,19 @@ function Login() {
     setDisabled(!(isEmailvalid && isPasswordvalid));
   }, [password, email]);
 
+  const loginUser = async () => {
+    try {
+      const res = await axios.post('http://localhost:3001/login', { email, password });
+      console.log(res);
+      const { role } = res.data;
+      if (role === 'customer') {
+        history.push('/customer/products');
+      }
+    } catch (err) {
+      console.log(err.response.data.message);
+      setError(err.response.data.message);
+    }
+  };
   return (
     <div>
       <form>
@@ -56,15 +72,24 @@ function Login() {
           type="button"
           data-testid={ ROUTE_ELEMENTS[3] }
           disabled={ isDisabled }
+          onClick={ loginUser }
         >
           login
         </button>
         <button
           type="button"
           data-testid={ ROUTE_ELEMENTS[4] }
+          onClick={ () => history.push('/register') }
         >
-          <Link to="/cadastro">Ainda não tenho conta</Link>
+          Ainda não tenho conta
         </button>
+        {error && (
+          <p
+            data-testid="common_login__element-invalid-email"
+          >
+            {error}
+          </p>
+        )}
       </form>
     </div>
   );

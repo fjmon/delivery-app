@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Cadastro() {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [iDisabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
+  const [error, setError] = useState(null);
 
   const ROUTE_ELEMENTS = {
     1: 'common_register__input-name',
@@ -14,25 +17,31 @@ export default function Cadastro() {
     5: 'common_register__element-invalid-email',
   };
 
-  const MIN_LENGHT_PASSWORD = 6;
+  const MIN_LENGTH_PASSWORD = 6;
+  const MIN_LENGTH_NAME = 12;
 
   const handleName = ({ target: { value } }) => setName(value);
   const handleEmail = ({ target: { value } }) => setEmail(value);
   const handlePassword = ({ target: { value } }) => setPassword(value);
-  let show = false;
-
-  const validaCadastro = () => {
-    if (email === '' || password === '') {
-      show = true;
-    }
-  };
 
   useEffect(() => {
     const vEmail = /^\S+@\S+\.\S+$/;
-    const vPassword = email.match(vEmail) && password.length >= MIN_LENGHT_PASSWORD;
-    setDisabled(!(vPassword && vEmail));
-  }, [name, email, password]);
+    const isEmailvalid = email.match(vEmail) != null;
+    const isPasswordvalid = password.length >= MIN_LENGTH_PASSWORD;
+    const isName = name.length >= MIN_LENGTH_NAME;
+    setDisabled(!(isEmailvalid && isPasswordvalid && isName));
+  }, [password, email, name]);
 
+  const registerUser = async () => {
+    try {
+      const res = await axios.post('http://localhost:3001/register', { email, password, name });
+      console.log(res);
+      history.push('/customer/products');
+    } catch (err) {
+      console.log(err.response.data.message);
+      setError(err.response.data.message);
+    }
+  };
   return (
     <div>
       <h1>Cadastro</h1>
@@ -42,9 +51,8 @@ export default function Cadastro() {
           Nome
           <input
             data-testid={ ROUTE_ELEMENTS[1] }
-            type="nome"
-            id="nome"
-            placeholder="Nome"
+            type="name"
+            placeholder="name"
             onChange={ handleName }
           />
         </label>
@@ -53,32 +61,36 @@ export default function Cadastro() {
           <input
             data-testid={ ROUTE_ELEMENTS[2] }
             type="email"
-            id="email"
-            placeholder="Email"
+            placeholder="email"
             onChange={ handleEmail }
           />
         </label>
-        <label htmlFor="senha">
+        <label htmlFor="password">
           Senha
           <input
             data-testid={ ROUTE_ELEMENTS[3] }
             type="password"
-            id="senha"
-            placeholder="Senha"
+            placeholder="password"
             onChange={ handlePassword }
           />
         </label>
         <button
           data-testid={ ROUTE_ELEMENTS[4] }
           type="submit"
-          onChange={ validaCadastro }
-          disabled={ iDisabled }
+          disabled={ disabled }
+          onClick={ registerUser }
         >
           Cadastrar
 
         </button>
       </form>
-      {show && <p data-testid={ ROUTE_ELEMENTS[5] }>Email ou password inválido</p>}
+      {error && (
+        <p
+          data-testid="common_register__element-invalid-email"
+        >
+          {error}
+        </p>
+      )}
     </div>
   );
 }
