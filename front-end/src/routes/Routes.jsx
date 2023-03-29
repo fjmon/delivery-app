@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Register from '../Pages/Register';
-import Login from '../pages/Login';
+import Login from '../Pages/Login';
 
 function Router() {
   return (
