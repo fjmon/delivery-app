@@ -16,7 +16,15 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
-const validateUser = async (req, res, next) => {
+const validateName = (req, res, next) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ message: 'Name is required' });
+  }
+  next();
+};
+
+const validateUserExist = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email } });
   const hashedPassword = md5(password);
@@ -35,8 +43,19 @@ const validateUser = async (req, res, next) => {
   next();
 };
 
+const validateUserNotExist = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await User.findOne({ where: { email } });
+  if (user) {
+    return res.status(409).json({ message: 'User already exist' });
+  }
+  next();
+};
+
 module.exports = {
-  validatePassword,
+  validateName,
   validateEmail,
-  validateUser,
+  validatePassword,
+  validateUserExist,
+  validateUserNotExist,
 };
