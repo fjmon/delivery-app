@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import Register from '../Pages/Register';
 import Login from '../pages/Login';
 
 function Router() {
   return (
     <Switch>
       <Route path="/login" component={ Login } />
-      <Route exact path="/">
-        <Redirect to="/login" />
-      </Route>
+      <Route path="/register" component={ Register } />
+      <Redirect from="/" to="/login" />
     </Switch>
   );
 }
