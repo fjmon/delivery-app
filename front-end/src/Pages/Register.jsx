@@ -46,7 +46,6 @@ export default function Cadastro() {
     <div>
       <h1>Cadastro</h1>
       <form>
-
         <label htmlFor="name">
           Nome
           <input
@@ -86,7 +85,7 @@ export default function Cadastro() {
       </form>
       {error && (
         <p
-          data-testid="common_register__element-invalid-email"
+          data-testid={ ROUTE_ELEMENTS[5] }
         >
           {error}
         </p>

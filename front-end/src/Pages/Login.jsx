@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { setData } from '../hooks/useLocalStorage';
 
 function Login() {
   const history = useHistory();
@@ -8,7 +9,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [isDisabled, setDisabled] = useState(true);
   const [error, setError] = useState(null);
-
   const MIN_LENGTH_PASSWORD = 6;
 
   const ROUTE_ELEMENTS = {
@@ -35,13 +35,13 @@ function Login() {
   const loginUser = async () => {
     try {
       const { data } = await axios.post('http://localhost:3001/login', { email, password });
-      console.log(data);
       const { role } = data.user;
       console.log(role);
       if (role === 'customer') {
         console.log('entrou aqui');
         history.push('/customer/products');
       }
+      setData('user', data);
     } catch (err) {
       console.log(err.response.data.message);
       setError(err.response.data.message);
