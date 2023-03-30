@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const loginRouter = require('../routes/loginRouter');
 const registerRouter = require('../routes/registerRouter');
+const productRouter = require('../routes/productRouter');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/products', productRouter);
 
 app.use((error, req, res, _next) => {
   console.log(error);
