@@ -16,6 +16,8 @@ app.use('/register', registerRouter);
 app.use('/products', productRouter);
 app.use('/validateToken', tokenRouter);
 
+app.use(express.static('public'));
+
 app.use((error, req, res, _next) => {
   console.log(error);
   res.status(500).json({ message: 'internal server error' });
