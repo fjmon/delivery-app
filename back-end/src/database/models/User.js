@@ -6,7 +6,7 @@ const UserModel = (sequelize, DataTypes) => {
     name: { type: DataTypes.STRING },
     email: { type: DataTypes.STRING },
     password: { type: DataTypes.STRING },
-    role: { type: DataTypes.STRING },
+    role: { type: DataTypes.STRING, defaultValue: 'customer' },
   },
   { timestamps: false, tableName: 'users', underscored: true },
 );
