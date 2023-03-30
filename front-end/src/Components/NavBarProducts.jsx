@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function NavBarProducts() {
   //
@@ -29,6 +29,10 @@ export default function NavBarProducts() {
       },
     }];
 
+  const handleExit = () => {
+    localStorage.clear();
+    useHistory.push('/login');
+  };
   const ROUTE_ELEMENTS = {
     1: 'customer_products__element-navbar-link-products',
     2: 'customer_products__element-navbar-link-input-orders',
@@ -50,9 +54,15 @@ export default function NavBarProducts() {
         <p>{ namePedidos }</p>
       </div>
       <div data-testid={ ROUTE_ELEMENTS[4] }>
-        <Link to="/login">
-          <button type="button"> Sair </button>
-        </Link>
+
+        <button
+          type="button"
+          onClick={ handleExit }
+        >
+          Sair
+
+        </button>
+
       </div>
 
     </nav>
