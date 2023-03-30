@@ -25,8 +25,7 @@ export default function NavBarProducts() {
       <div>
         <h3 data-testid={ ROUTE_ELEMENTS[1] }>Produtos</h3>
         <h3 data-testid={ ROUTE_ELEMENTS[2] }>Meus Pedidos</h3>
-        <h3 data-testid={ ROUTE_ELEMENTS[3] }>{name || 'usuário'}</h3>
-
+        <h3 data-testid={ ROUTE_ELEMENTS[3] }>{ name }</h3>
         <button
           type="button"
           data-testid={ ROUTE_ELEMENTS[4] }

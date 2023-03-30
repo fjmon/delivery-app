@@ -12,6 +12,7 @@ export default function ProductCard({ product }) {
     5: 'customer_products__input-card-quantity-',
     6: 'customer_products__button-card-add-item-',
   };
+
   const handleQuantity = ({ target: { value } }) => {
     setQuantity(value);
   };
@@ -27,7 +28,7 @@ export default function ProductCard({ product }) {
         {product.name}
       </h1>
       <p data-testid={ `${ROUTE_ELEMENTS[3]}${product.id}` }>
-        {product.price}
+        {`${'R$'}${product.price}`}
       </p>
       <button
         name={ product.name }
@@ -50,6 +51,7 @@ export default function ProductCard({ product }) {
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[6]}${product.id}` }
         name={ product.name }
+
       >
         +
       </button>
