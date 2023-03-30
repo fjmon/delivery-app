@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 export default function Cadastro() {
@@ -14,7 +15,7 @@ export default function Cadastro() {
     2: 'common_register__input-email',
     3: 'common_register__input-password',
     4: 'common_register__button-register',
-    5: 'common_register__element-invalid-email',
+    5: 'common_register__element-invalid_register',
   };
 
   const MIN_LENGTH_PASSWORD = 6;
@@ -34,8 +35,8 @@ export default function Cadastro() {
 
   const registerUser = async () => {
     try {
-      const res = await axios.post('http://localhost:3001/register', { email, password, name });
-      console.log(res);
+      const { data } = await axios.post('http://localhost:3001/register', { email, password, name });
+      console.log(data);
       history.push('/customer/products');
     } catch (err) {
       console.log(err.response.data.message);
@@ -75,7 +76,7 @@ export default function Cadastro() {
         </label>
         <button
           data-testid={ ROUTE_ELEMENTS[4] }
-          type="submit"
+          type="button"
           disabled={ disabled }
           onClick={ registerUser }
         >
