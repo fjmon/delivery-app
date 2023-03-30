@@ -3,6 +3,7 @@ const cors = require('cors');
 const loginRouter = require('../routes/loginRouter');
 const registerRouter = require('../routes/registerRouter');
 const productRouter = require('../routes/productRouter');
+const tokenRouter = require('../routes/tokenRouter');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
+app.use('/validateToken', tokenRouter);
 
 app.use((error, req, res, _next) => {
   console.log(error);
