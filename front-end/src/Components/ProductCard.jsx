@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function ProductCard({ product }) {
+  const [quantity, setQuantity] = useState(0);
+
   const ROUTE_ELEMENTS = {
     1: 'customer_products__img-card-bg-image-',
     2: 'customer_products__element-card-title',
@@ -10,12 +12,15 @@ export default function ProductCard({ product }) {
     5: 'customer_products__input-card-quantity-',
     6: 'customer_products__button-card-add-item-',
   };
+  const handleQuantity = ({ target: { value } }) => {
+    setQuantity(value);
+  };
 
   return (
     <div>
       <img
         data-testid={ `${ROUTE_ELEMENTS[1]}${product.id}` }
-        src={ urlImage }
+        src={ product.urlImage }
         alt={ product.name }
       />
       <h1 data-testid={ `${ROUTE_ELEMENTS[2]}${product.id}` }>
@@ -38,6 +43,7 @@ export default function ProductCard({ product }) {
         type="number"
         min={ 0 }
         value={ +quantity }
+        onChange={ handleQuantity }
         placeholder="0"
       />
       <button
