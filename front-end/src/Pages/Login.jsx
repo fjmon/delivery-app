@@ -34,10 +34,12 @@ function Login() {
 
   const loginUser = async () => {
     try {
-      const res = await axios.post('http://localhost:3001/login', { email, password });
-      console.log(res);
-      const { role } = res.data;
+      const { data } = await axios.post('http://localhost:3001/login', { email, password });
+      console.log(data);
+      const { role } = data.user;
+      console.log(role);
       if (role === 'customer') {
+        console.log('entrou aqui');
         history.push('/customer/products');
       }
     } catch (err) {
