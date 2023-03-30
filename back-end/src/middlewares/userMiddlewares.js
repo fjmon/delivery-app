@@ -18,8 +18,11 @@ const validatePassword = (req, res, next) => {
 
 const validateName = (req, res, next) => {
   const { name } = req.body;
-  if (!name) {
+  if (!name || typeof name !== 'string') {
     return res.status(400).json({ message: 'Name is required' });
+  }
+  if (name.length <= 12) {
+    return res.status(400).json({ message: 'Name must be greater than or equal to 12 characters' });
   }
   next();
 };
@@ -44,11 +47,20 @@ const validateUserExist = async (req, res, next) => {
 };
 
 const validateUserNotExist = async (req, res, next) => {
-  const { email } = req.body;
-  const user = await User.findOne({ where: { email } });
-  if (user) {
-    return res.status(409).json({ message: 'User already exist' });
+  const { email, name } = req.body;
+
+  // verifica se já existe uma pessoa com o email
+  const findUserByEmail = await User.findOne({ where: { email } });
+  if (findUserByEmail) {
+    return res.status(409).json({ message: 'User email already exist' });
   }
+
+  // verifica se ja existe uma pessoa com o nome
+  const findUserByName = await User.findOne({ where: { name } });
+  if (findUserByName) {
+    return res.status(409).json({ message: 'User name already exist' });
+  }
+
   next();
 };
 
