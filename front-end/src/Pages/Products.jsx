@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import NavBarProducts from '../Components/NavBarProducts';
 import ProductCard from '../Components/ProductCard';
 
@@ -8,11 +9,10 @@ function Products() {
   const getProducts = async () => {
     try {
       const { data } = await axios.get('http://localhost:3001/products', { });
-      console.log(data.products);
+      console.log(data);
       setProducts(data.products);
     } catch (err) {
       console.log(err.response.data.message);
-      setError(err.response.data.message);
     }
   };
 

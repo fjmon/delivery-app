@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import CardButtons from './CardButtons';
 
 export default function ProductCard({ product }) {
-  const {
-    id,
-    name,
-    price,
-    urlImage,
-
-  } = product;
-
   const ROUTE_ELEMENTS = {
     1: 'customer_products__img-card-bg-image-',
     2: 'customer_products__element-card-title',
@@ -20,29 +11,42 @@ export default function ProductCard({ product }) {
     6: 'customer_products__button-card-add-item-',
   };
 
-  const [quantity, setQuantity] = useState(0);
-  const handleQuantity = ({ target: { value } }) => setQuantity(value);
-
   return (
     <div>
       <img
-        data-testid={ `${ROUTE_ELEMENTS[1]}${id}` }
+        data-testid={ `${ROUTE_ELEMENTS[1]}${product.id}` }
         src={ urlImage }
-        alt={ name }
+        alt={ product.name }
       />
-      <h1 data-testid={ `${ROUTE_ELEMENTS[2]}${id}` }>
-        {name}
+      <h1 data-testid={ `${ROUTE_ELEMENTS[2]}${product.id}` }>
+        {product.name}
       </h1>
-      <p data-testid={ `${ROUTE_ELEMENTS[3]}${id}` }>
-        {price}
+      <p data-testid={ `${ROUTE_ELEMENTS[3]}${product.id}` }>
+        {product.price}
       </p>
+      <button
+        name={ product.name }
+        type="button"
+        data-testid={ `${ROUTE_ELEMENTS[4]}${product.id}` }
+        id={ product.id }
+
+      >
+        -
+      </button>
       <input
-        data-testid={ `${ROUTE_ELEMENTS[4]}${id}` }
+        data-testid={ `${ROUTE_ELEMENTS[5]}${product.id}` }
         type="number"
-        value={ quantity }
-        onChange={ handleQuantity }
+        min={ 0 }
+        value={ +quantity }
+        placeholder="0"
       />
-      <CardButtons />
+      <button
+        type="button"
+        data-testid={ `${ROUTE_ELEMENTS[6]}${product.id}` }
+        name={ product.name }
+      >
+        +
+      </button>
     </div>
   );
 }
