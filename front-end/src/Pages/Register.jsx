@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 export default function Cadastro() {
@@ -34,8 +35,8 @@ export default function Cadastro() {
 
   const registerUser = async () => {
     try {
-      const res = await axios.post('http://localhost:3001/register', { email, password, name });
-      console.log(res);
+      const { data } = await axios.post('http://localhost:3001/register', { email, password, name });
+      console.log(data);
       history.push('/customer/products');
     } catch (err) {
       console.log(err.response.data.message);
@@ -76,7 +77,7 @@ export default function Cadastro() {
         </label>
         <button
           data-testid={ ROUTE_ELEMENTS[4] }
-          type="submit"
+          type="button"
           disabled={ disabled }
           onClick={ registerUser }
         >
@@ -86,7 +87,7 @@ export default function Cadastro() {
       </form>
       {error && (
         <p
-          data-testid="common_register__element-invalid-email"
+          data-testid="common_register__element-invalid_register"
         >
           {error}
         </p>
