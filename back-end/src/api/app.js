@@ -4,6 +4,7 @@ const loginRouter = require('../routes/loginRouter');
 const registerRouter = require('../routes/registerRouter');
 const productRouter = require('../routes/productRouter');
 const tokenRouter = require('../routes/tokenRouter');
+const saleRouter = require('../routes/saleRouter');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
 app.use('/validateToken', tokenRouter);
+app.use('/sale', saleRouter);
 
 app.use(express.static('public'));
 

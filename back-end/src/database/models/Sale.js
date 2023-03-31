@@ -1,20 +1,25 @@
+/* eslint-disable max-lines-per-function */
 const SaleModel = (sequelize, DataTypes) => {
   const Sale = sequelize.define(
     'Sale',
-    { id: { autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
-      totalPrice: { type: DataTypes.DOUBLE, field: 'total_price' },
-      deliveryAddress: { type: DataTypes.STRING, field: 'delivery_address' },
-      deliveryNumber: { type: DataTypes.STRING, field: 'delivery_number' },
-      saleDate: { type: DataTypes.DATE, field: 'sale_date' },
-      status: { type: DataTypes.INTEGER },
-      userId: { type: DataTypes.INTEGER, foreignKey: true, field: 'user_id' },
-      sellerId: { type: DataTypes.INTEGER, foreignKey: true, field: 'seller_id' },
+    { 
+      id: { autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
+      userId: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
+      sellerId: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
+      totalPrice: { type: DataTypes.DECIMAL(9, 2), allowNull: false },
+      deliveryAddress: { type: DataTypes.STRING, allowNull: false },
+      deliveryNumber: { type: DataTypes.STRING, allowNull: false },
+      saleDate: {
+        type: DataTypes.DATE, 
+        defaultValue: sequelize.fn('NOW'),
+      },
+      status: { type: DataTypes.INTEGER, allowNull: false },
     },
-    { timestamps: false, tableName: 'sales', underscored: true },
+    { tableName: 'sales', timestamps: false, underscored: true },
   );
   Sale.associate = (models) => {
-    Sale.belongsTo(models.User, { foreignKey: 'user_id', as: 'users' });
-    Sale.belongsTo(models.User, { foreignKey: 'seller_id', as: 'seller' });
+    Sale.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Sale.belongsTo(models.User, { foreignKey: 'sellerId', as: 'seller' });
   }; return Sale; 
 };
 
