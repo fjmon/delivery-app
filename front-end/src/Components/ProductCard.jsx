@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { getData } from '../hooks/useLocalStorage';
 
 export default function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(0);
@@ -13,12 +14,38 @@ export default function ProductCard({ product }) {
     6: 'customer_products__button-card-add-item-',
   };
 
+  useEffect(() => {
+    const carrinho = getData('carrinho') || [];
+    const index = carrinho.products.findIndex((item) => item.productId === product.id);
+    if (index >= 0) {
+      setQuantity(carrinho[index].quantity);
+    } else {
+      setQuantity(0);
+    }
+  });
+
   const quantityMaisUm = () => {
+    const carrinho = getData('carrinho');
+    const index = carrinho.products.findIndex((item) => item.productId === product.id);
+
     setQuantity((prevQuantity) => prevQuantity + 1);
+
+    if (index < 0) {
+      newItem = {
+        productId: product.id,
+        name: product.name,
+        quantity: 0,
+        unitPrice: product.price,
+        subTotalPrice: product.price * quantity,
+      };
+      carrinho.products.push(newItem);
+    } else {
+      carrinho[index].quantity += carrinho[index].quantity + 1;
+      carrinho[index].subTotalPrice = product.price * quantity;
+    }
   };
 
   const quantityMenosUm = () => {
-    console.log(`preço: ${product.price} quantidade: ${quantity}`);
     if (quantity > 0) {
       setQuantity((prevQuantity) => prevQuantity - 1);
     } else {

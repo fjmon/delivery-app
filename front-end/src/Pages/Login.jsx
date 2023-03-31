@@ -43,6 +43,7 @@ function Login() {
       }
       console.log(data);
       setData('user', data.user);
+      setData('carrinho', { products: [] });
       console.log(localStorage.getItem('user'));
     } catch (err) {
       console.log(err.response.data.message);
