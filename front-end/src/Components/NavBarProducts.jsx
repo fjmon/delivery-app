@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { getData } from '../hooks/useLocalStorage';
 
 export default function NavBarProducts() {
+  const history = useHistory();
   const [name, setName] = useState('');
+
   const handleExit = () => {
     localStorage.removeItem('user');
-    useHistory.push('/login');
+    history.push('/login');
   };
   useEffect(() => {
     const local = getData('user');
@@ -23,8 +25,12 @@ export default function NavBarProducts() {
   return (
     <nav>
       <div>
-        <h3 data-testid={ ROUTE_ELEMENTS[1] }>Produtos</h3>
-        <h3 data-testid={ ROUTE_ELEMENTS[2] }>Meus Pedidos</h3>
+        <h3 data-testid={ ROUTE_ELEMENTS[1] }>
+          <Link to="/customer/products">Produtos</Link>
+        </h3>
+        <h3 data-testid={ ROUTE_ELEMENTS[2] }>
+          <Link to="/customer/orders">Meus Pedidos</Link>
+        </h3>
         <h3 data-testid={ ROUTE_ELEMENTS[3] }>{ name }</h3>
         <button
           type="button"

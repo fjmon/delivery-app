@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NavBarProducts from '../Components/NavBarProducts';
 import ProductCard from '../Components/ProductCard';
+import './Products.css';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -24,9 +25,12 @@ function Products() {
     <>
       <NavBarProducts />
       <h1>produtos</h1>
-      { products.map((product) => (
-        <ProductCard product={ product } key={ product.id } />
-      )) }
+      <div className="products">
+
+        { products.map((product) => (
+          <ProductCard product={ product } key={ product.id } />
+        )) }
+      </div>
     </>
 
   );

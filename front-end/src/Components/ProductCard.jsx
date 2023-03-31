@@ -6,7 +6,7 @@ export default function ProductCard({ product }) {
 
   const ROUTE_ELEMENTS = {
     1: 'customer_products__img-card-bg-image-',
-    2: 'customer_products__element-card-title',
+    2: 'customer_products__element-card-title-',
     3: 'customer_products__element-card-price-',
     4: 'customer_products__button-card-rm-item-',
     5: 'customer_products__input-card-quantity-',
@@ -21,6 +21,7 @@ export default function ProductCard({ product }) {
     <div>
       <img
         data-testid={ `${ROUTE_ELEMENTS[1]}${product.id}` }
+        style={ { width: '20px' } }
         src={ product.urlImage }
         alt={ product.name }
       />
@@ -28,7 +29,7 @@ export default function ProductCard({ product }) {
         {product.name}
       </h1>
       <p data-testid={ `${ROUTE_ELEMENTS[3]}${product.id}` }>
-        {`${'R$'}${product.price}`}
+        {`${'R$'}${product.price.toString()}`}
       </p>
       <button
         name={ product.name }
