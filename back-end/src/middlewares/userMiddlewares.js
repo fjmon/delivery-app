@@ -64,10 +64,16 @@ const validateUserNotExist = async (req, res, next) => {
   next();
 };
 
+const validateUser = async (id) => {
+  const user = await User.findByPk(id);
+  return user;
+};
+
 module.exports = {
   validateName,
   validateEmail,
   validatePassword,
   validateUserExist,
   validateUserNotExist,
+  validateUser,
 };
