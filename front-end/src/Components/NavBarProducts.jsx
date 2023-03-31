@@ -12,15 +12,15 @@ export default function NavBarProducts() {
   };
   useEffect(() => {
     const local = getData('user');
-    setName(local.user.name);
-    console.log(local.user.name);
+    setName(local.name);
+    console.log(local.name);
   }, [setName]);
 
   const ROUTE_ELEMENTS = {
     1: 'customer_products__element-navbar-link-products',
-    2: 'customer_products__element-navbar-link-input-orders',
-    3: 'customer_products__element-navbar-link-button-full-name',
-    4: 'customer_products__element-navbar-link-button-logout',
+    2: 'customer_products__element-navbar-link-orders',
+    3: 'customer_products__element-navbar-user-full-name',
+    4: 'customer_products__element-navbar-link-logout',
   };
   return (
     <nav>

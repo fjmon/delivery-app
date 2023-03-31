@@ -13,6 +13,19 @@ export default function ProductCard({ product }) {
     6: 'customer_products__button-card-add-item-',
   };
 
+  const quantityMaisUm = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const quantityMenosUm = () => {
+    console.log(`preço: ${product.price} quantidade: ${quantity}`);
+    if (quantity > 0) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    } else {
+      setQuantity(0);
+    }
+  };
+
   const handleQuantity = ({ target: { value } }) => {
     setQuantity(value);
   };
@@ -29,14 +42,14 @@ export default function ProductCard({ product }) {
         {product.name}
       </h1>
       <p data-testid={ `${ROUTE_ELEMENTS[3]}${product.id}` }>
-        {`${'R$'}${product.price.toString()}`}
+        {`${(product.price).toFixed(2).toString().replace('.', ',')}`}
       </p>
       <button
         name={ product.name }
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[4]}${product.id}` }
         id={ product.id }
-
+        onClick={ quantityMenosUm }
       >
         -
       </button>
@@ -44,7 +57,7 @@ export default function ProductCard({ product }) {
         data-testid={ `${ROUTE_ELEMENTS[5]}${product.id}` }
         type="number"
         min={ 0 }
-        value={ +quantity }
+        value={ quantity }
         onChange={ handleQuantity }
         placeholder="0"
       />
@@ -52,7 +65,7 @@ export default function ProductCard({ product }) {
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[6]}${product.id}` }
         name={ product.name }
-
+        onClick={ quantityMaisUm }
       >
         +
       </button>
