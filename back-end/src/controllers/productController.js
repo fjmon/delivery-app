@@ -9,6 +9,16 @@ const getProducts = async (req, res, next) => {
   }
 };
 
+const addProduct = async (req, res, next) => {
+  try {
+    const products = await productService.addProduct(req.body);
+    res.status(201).json({ products });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getProducts,
+  addProduct,
 };
