@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 import NavBarProducts from '../Components/NavBarProducts';
 import ProductCard from '../Components/ProductCard';
 import './Products.css';
 
 function Products() {
+  const history = useHistory();
   const [products, setProducts] = useState([]);
-  const { totalcarrinho } = useContext(Context);
+  const { cart } = useContext(Context);
+
   const getProducts = async () => {
     try {
       const { data } = await axios.get('http://localhost:3001/products', { });
@@ -17,10 +20,13 @@ function Products() {
       console.log(err.response.data.message);
     }
   };
-  console.log(`TOTAL CARRINHO AQUI: ${totalcarrinho}`);
+
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+  }, [cart]);
 
   return (
     <>
@@ -31,9 +37,28 @@ function Products() {
           <ProductCard product={ product } key={ product.id } />
         )) }
       </div>
-      <button type="button">
-        { `ver carrinho: ${(totalcarrinho).toFixed(2)}` }
-      </button>
+      { cart.products && (
+        <button
+          type="button"
+          onClick={ () => history.push('/customer/checkout') }
+          data-testid="customer_products__button-cart"
+          disabled={ cart.products.length === 0 }
+        >
+          Ver Carrinho: R$
+          <button
+            type="button"
+            // onClick={ () => history.push('/customer/checkout') }
+            data-testid="customer_products__checkout-bottom-value"
+            disabled={ cart.products.length === 0 }
+          >
+            { `${
+              cart.products
+                .reduce((acc, item) => acc + (item[1] * item[2]), 0)
+                .toFixed(2).replace('.', ',')}` }
+          </button>
+        </button>
+      )}
+
     </>
 
   );

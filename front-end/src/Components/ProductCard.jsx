@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { getData } from '../hooks/useLocalStorage';
+import { getData, setData } from '../hooks/useLocalStorage';
+import Context from '../context/Context';
 
 export default function ProductCard({ product }) {
   const [quantity, setQuantity] = useState(0);
-
+  const { setCart } = useContext(Context);
   const ROUTE_ELEMENTS = {
     1: 'customer_products__img-card-bg-image-',
     2: 'customer_products__element-card-title-',
@@ -14,48 +15,37 @@ export default function ProductCard({ product }) {
     6: 'customer_products__button-card-add-item-',
   };
 
-  useEffect(() => {
-    const carrinho = getData('carrinho') || [];
-    const index = carrinho.products.findIndex((item) => item.productId === product.id);
-    if (index >= 0) {
-      setQuantity(carrinho[index].quantity);
-    } else {
-      setQuantity(0);
-    }
-  });
-
-  const quantityMaisUm = () => {
-    const carrinho = getData('carrinho');
-    const index = carrinho.products.findIndex((item) => item.productId === product.id);
-
-    setQuantity((prevQuantity) => prevQuantity + 1);
-
-    if (index < 0) {
-      newItem = {
-        productId: product.id,
-        name: product.name,
-        quantity: 0,
-        unitPrice: product.price,
-        subTotalPrice: product.price * quantity,
-      };
-      carrinho.products.push(newItem);
-    } else {
-      carrinho[index].quantity += carrinho[index].quantity + 1;
-      carrinho[index].subTotalPrice = product.price * quantity;
-    }
-  };
-
-  const quantityMenosUm = () => {
-    if (quantity > 0) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-    } else {
-      setQuantity(0);
-    }
-  };
-
   const handleQuantity = ({ target: { value } }) => {
-    setQuantity(value);
+    setQuantity(() => value);
   };
+
+  useEffect(() => {
+    const cart = getData('cart');
+    const index = cart.products.findIndex((item) => item[0] === product.id);
+
+    if (index >= 0) {
+      setQuantity(cart.products[index][1]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const cart = getData('cart');
+
+    const index = cart.products.findIndex((item) => item[0] === product.id);
+    if (Number(quantity) > 0) {
+      if (index >= 0) {
+        cart.products[index][1] = quantity;
+      } else {
+        cart.products.push([product.id, quantity, product.price]);
+      }
+    }
+
+    if (index >= 0 && Number(quantity) === 0) {
+      cart.products.splice(index, 1);
+    }
+    setCart(cart);
+    setData('cart', cart);
+  }, [quantity]);
 
   return (
     <div>
@@ -69,14 +59,18 @@ export default function ProductCard({ product }) {
         {product.name}
       </h1>
       <p data-testid={ `${ROUTE_ELEMENTS[3]}${product.id}` }>
-        {`${(product.price).toFixed(2).toString().replace('.', ',')}`}
+        {`${String(Number(product.price).toFixed(2)).replace('.', ',')}`}
       </p>
       <button
         name={ product.name }
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[4]}${product.id}` }
         id={ product.id }
-        onClick={ quantityMenosUm }
+        onClick={ () => {
+          if (quantity > 0) {
+            setQuantity(quantity - 1);
+          }
+        } }
       >
         -
       </button>
@@ -92,7 +86,10 @@ export default function ProductCard({ product }) {
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[6]}${product.id}` }
         name={ product.name }
-        onClick={ quantityMaisUm }
+        id={ product.id }
+        onClick={ () => {
+          setQuantity((prev) => prev + 1);
+        } }
       >
         +
       </button>
@@ -104,7 +101,7 @@ ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
     urlImage: PropTypes.string,
   }).isRequired,
 };

@@ -4,6 +4,7 @@ import Register from '../Pages/Register';
 import Login from '../Pages/Login';
 import Products from '../Pages/Products';
 import Orders from '../Pages/Orders';
+import Checkout from '../Pages/Checkout';
 
 function Router() {
   return (
@@ -12,6 +13,7 @@ function Router() {
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Products } />
       <Route path="/customer/orders" component={ Orders } />
+      <Route path="/customer/checkout" component={ Checkout } />
       <Redirect from="/" to="/login" />
     </Switch>
   );

@@ -4,12 +4,15 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [totalcarrinho, setTotalcarrinho] = useState(0);
+  const [cart, setCart] = useState({});
   // const [carrinho, setCarrinho] = useState([]);
 
   const context = useMemo(() => ({
     totalcarrinho,
     setTotalcarrinho,
-  }), [totalcarrinho, setTotalcarrinho]);
+    cart,
+    setCart,
+  }), [totalcarrinho, setTotalcarrinho, cart, setCart]);
 
   return (
     <Context.Provider value={ context }>
