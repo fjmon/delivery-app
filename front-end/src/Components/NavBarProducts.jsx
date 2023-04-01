@@ -1,62 +1,40 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import { getData } from '../hooks/useLocalStorage';
 
 export default function NavBarProducts() {
-  //
-  const mockProducts = [
-    {
-      id: 1,
-      name: 'Skol',
-      price: 10,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: 'Brhama',
-      price: 20,
-      quantity: 1,
-    },
-  ];
-
-  const mockPedidos = [
-    {
-      id: 1,
-      name: 'FULANO CICRANO',
-      price: 50,
-      order: {
-        1: mockProducts[0],
-        2: mockProducts[1],
-      },
-    }];
+  const history = useHistory();
+  const [name, setName] = useState('');
 
   const handleExit = () => {
-    localStorage.clear();
-    useHistory.push('/login');
+    localStorage.removeItem('user');
+    history.push('/login');
   };
+  useEffect(() => {
+    const local = getData('user');
+    setName(local.name);
+    console.log(local.name);
+  }, [setName]);
+
   const ROUTE_ELEMENTS = {
     1: 'customer_products__element-navbar-link-products',
-    2: 'customer_products__element-navbar-link-input-orders',
-    3: 'customer_products__element-navbar-link-button-full-name',
-    4: 'customer_products__element-navbar-link-button-logout',
+    2: 'customer_products__element-navbar-link-orders',
+    3: 'customer_products__element-navbar-user-full-name',
+    4: 'customer_products__element-navbar-link-logout',
   };
-  const namePedidos = mockPedidos[0].name;
-  const countProdutos = mockProducts.length;
-  console.log(countProdutos);
   return (
     <nav>
-      <div data-testid={ ROUTE_ELEMENTS[1] }>
-        Produtos
-      </div>
-      <div data-testid={ ROUTE_ELEMENTS[2] }>
-        <p>MEUS PEDIDOS</p>
-      </div>
-      <div data-testid={ ROUTE_ELEMENTS[3] }>
-        <p>{ namePedidos }</p>
-      </div>
-      <div data-testid={ ROUTE_ELEMENTS[4] }>
-
+      <div>
+        <h3 data-testid={ ROUTE_ELEMENTS[1] }>
+          <Link to="/customer/products">Produtos</Link>
+        </h3>
+        <h3 data-testid={ ROUTE_ELEMENTS[2] }>
+          <Link to="/customer/orders">Meus Pedidos</Link>
+        </h3>
+        <h3 data-testid={ ROUTE_ELEMENTS[3] }>{ name }</h3>
         <button
           type="button"
+          data-testid={ ROUTE_ELEMENTS[4] }
           onClick={ handleExit }
         >
           Sair

@@ -10,7 +10,7 @@ function Login() {
   const [isDisabled, setDisabled] = useState(true);
   const [error, setError] = useState(null);
   const MIN_LENGTH_PASSWORD = 6;
-
+  console.log('login: zebirita@email.com senha: $#zebirita#$');
   const ROUTE_ELEMENTS = {
     1: 'common_login__input-email',
     2: 'common_login__input-password',
@@ -41,7 +41,12 @@ function Login() {
         console.log('entrou aqui');
         history.push('/customer/products');
       }
-      setData('user', data);
+      console.log(data);
+      setData('user', data.user);
+      setData('cart', {
+        products: [],
+      });
+      console.log(localStorage.getItem('user'));
     } catch (err) {
       console.log(err.response.data.message);
       setError(err.response.data.message);
