@@ -36,7 +36,7 @@ export default function ProductCard({ product }) {
       if (index >= 0) {
         cart.products[index][1] = quantity;
       } else {
-        cart.products.push([product.id, quantity, product.price]);
+        cart.products.push([product.id, quantity, product.price, product.name]);
       }
     }
 
