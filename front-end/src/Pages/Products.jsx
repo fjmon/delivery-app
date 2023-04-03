@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 import NavBarProducts from '../Components/NavBarProducts';
 import ProductCard from '../Components/ProductCard';
+import TotalPrice from '../Components/TotalPrice';
 import './Products.css';
 
 function Products() {
@@ -28,6 +29,7 @@ function Products() {
   useEffect(() => {
   }, [cart]);
 
+  console.log(cart);
   return (
     <>
       <NavBarProducts />
@@ -44,18 +46,8 @@ function Products() {
           data-testid="customer_products__button-cart"
           disabled={ cart.products.length === 0 }
         >
-          Ver Carrinho: R$
-          <button
-            type="button"
-            // onClick={ () => history.push('/customer/checkout') }
-            data-testid="customer_products__checkout-bottom-value"
-            disabled={ cart.products.length === 0 }
-          >
-            { `${
-              cart.products
-                .reduce((acc, item) => acc + (item[1] * item[2]), 0)
-                .toFixed(2).replace('.', ',')}` }
-          </button>
+          Ver Carrinho:
+          <TotalPrice dataTest="customer_products__checkout-bottom-value" />
         </button>
       )}
 

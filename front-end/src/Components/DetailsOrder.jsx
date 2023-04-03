@@ -1,3 +1,4 @@
+// import axios from 'axios';
 import React, { useState } from 'react';
 import { setData } from '../hooks/useLocalStorage';
 
@@ -5,6 +6,7 @@ export default function DetailEntrega() {
   const [seller, setSeller] = useState('');
   const [adress, setAdress] = useState('');
   const [number, setNumber] = useState('');
+  const [vendedores] = useState([{ name: 'caren' }, { name: 'maria' }]);
 
   const handleAdress = ({ target: { value } }) => {
     setAdress(value);
@@ -25,16 +27,27 @@ export default function DetailEntrega() {
     console.log(order);
   };
 
+  // const pessoasVendedoras = async () => {
+  //   const result = await axios.get('localhost:3001/seller', {});
+  //   setVendedores(result);
+  // };
+  // useEffect(() => {
+  //   pessoasVendedoras();
+  // });
+
   return (
     <>
       <div>
-        <p>Pessoa vendedora</p>
         <label htmlFor="seller">
-          <input
+          <p>Pessoa vendedora</p>
+          <select
             type="text"
             data-testid="customer_checkout__select-seller"
             onChange={ handleSeller }
-          />
+          >
+            {vendedores?.map((e) => <option key={ e.name }>{e.name}</option>)}
+          </select>
+
         </label>
         <p>Endereço</p>
         <label htmlFor="address">
