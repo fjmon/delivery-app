@@ -28,6 +28,7 @@ function Products() {
   useEffect(() => {
   }, [cart]);
 
+  console.log(cart);
   return (
     <>
       <NavBarProducts />
