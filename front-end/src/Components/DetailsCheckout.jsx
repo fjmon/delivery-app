@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import Context from '../context/Context';
+import { setData } from '../hooks/useLocalStorage';
 
 const ROUTE_ELEMENTS = {
   1: 'customer_checkout__element-order-table-item-number-',
@@ -10,38 +12,46 @@ const ROUTE_ELEMENTS = {
   6: 'customer_checkout__element-order-table-remove-',
 };
 
-// falta o botão de remover item
-// falta resolver o problema de não conseguir pegar o index do produto no cart.
-export default function DetailsCheckout({ product }) {
-  console.log(product);
+export default function DetailsCheckout({ product, index }) {
+  const { cart, setCart } = useContext(Context);
+
+  const removeProduct = () => {
+    const newCart = cart.products;
+    newCart.splice(index, 1);
+    setData('cart', { products: newCart });
+    setCart({ products: newCart });
+  };
+
   return (
     <>
-      <p> Item </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[0]}${product[0]}` }>
-        {product[0]}
+      <div data-testid={ `${ROUTE_ELEMENTS[1]}${index}` }>
+        <p>
+          {index + 1}
+        </p>
+
       </div>
       <p> Descrição </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[1]}${product[0]}` }>
+      <div data-testid={ `${ROUTE_ELEMENTS[2]}${index}` }>
         {product[3]}
       </div>
       <p> Quantidade </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[2]}${product[0]}` }>
+      <div data-testid={ `${ROUTE_ELEMENTS[3]}${index}` }>
         {product[1]}
       </div>
       <p> Valor Unitario </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[3]}${product[0]}` }>
-        {product[2]}
+      <div data-testid={ `${ROUTE_ELEMENTS[4]}${index}` }>
+        {`${String(Number(product[2]).toFixed(2)).replace('.', ',')}`}
       </div>
       <p> Subtotal </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[4]}${product[0]}` }>
-        {product[2] * product[1]}
+      <div data-testid={ `${ROUTE_ELEMENTS[5]}${index}` }>
+        {(product[2] * product[1]).toFixed(2).replace('.', ',')}
       </div>
 
       <button
         type="button"
-        data-testid={ `${ROUTE_ELEMENTS[5]}${product[0]}` }
+        data-testid={ `${ROUTE_ELEMENTS[6]}${index}` }
         name={ product[3] }
-        id={ product[0] }
+        onClick={ removeProduct }
       >
         Remover Item
       </button>
@@ -50,7 +60,9 @@ export default function DetailsCheckout({ product }) {
 }
 
 DetailsCheckout.propTypes = {
+  index: PropTypes.number.isRequired,
   product: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.number,
     PropTypes.number,
     PropTypes.string,
   ])).isRequired,

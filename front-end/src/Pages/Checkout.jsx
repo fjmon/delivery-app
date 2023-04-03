@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import DetailsCheckout from '../Components/DetailsCheckout';
 import DetailsOrder from '../Components/DetailsOrder';
+import Context from '../context/Context';
+import TotalPrice from '../Components/TotalPrice';
 
 export default function Checkout() {
-  const [produtos, setprodutos] = useState([]);
-
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    console.log(cart.products);
-    setprodutos(cart.products);
-  }, []);
-  console.log(produtos);
+  const { cart } = useContext(Context);
 
   return (
     <>
@@ -18,8 +13,8 @@ export default function Checkout() {
         Finalizar Pedido
       </h2>
       <div>
-        { produtos.map((product) => (
-          <DetailsCheckout product={ product } key={ product[0] } />
+        { cart.products && cart.products.map((product, index) => (
+          <DetailsCheckout product={ product } index={ index } key={ product[0] } />
         )) }
       </div>
       <h2>
@@ -28,7 +23,13 @@ export default function Checkout() {
 
       </h2>
       <div>
-        <p> Total pedido:</p>
+        <p>
+          {' '}
+          Total pedido:
+          {' '}
+          <TotalPrice dataTest="customer_checkout__element-order-total-price" />
+
+        </p>
       </div>
       <div>
         <DetailsOrder />
