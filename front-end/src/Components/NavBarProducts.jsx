@@ -13,7 +13,6 @@ export default function NavBarProducts() {
   useEffect(() => {
     const local = getData('user');
     setName(local.name);
-    console.log(local.name);
   }, [setName]);
 
   const ROUTE_ELEMENTS = {

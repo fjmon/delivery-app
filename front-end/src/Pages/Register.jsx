@@ -35,8 +35,7 @@ export default function Cadastro() {
 
   const registerUser = async () => {
     try {
-      const { data } = await axios.post('http://localhost:3001/register', { email, password, name });
-      console.log(data);
+      await axios.post('http://localhost:3001/register', { email, password, name });
       history.push('/customer/products');
     } catch (err) {
       console.log(err.response.data.message);
