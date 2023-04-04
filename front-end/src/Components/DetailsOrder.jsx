@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../context/Context';
 import { getData } from '../hooks/useLocalStorage';
 
@@ -24,23 +25,27 @@ export default function DetailEntrega() {
     setSeller(() => value);
   };
 
-  const getOrder = () => {
+  const history = useHistory();
+
+  const getOrder = async () => {
     const { products } = cart;
     const user = getData('user');
-    console.log(sellers, seller);
-    console.log({
+    const bodyRequest = {
       totalPrice: cart.products.reduce((acc, item) => acc + (item[1] * item[2]), 0),
       deliveryAddress: adress,
       deliveryNumber: number,
-      status: 1,
+      status: 'Pendente',
       userId: user.id,
-      // sellerId: sellers.find((vendedor) => vendedor.name === seller),
+      sellerId: seller,
       products,
-    });
-    // axios.post(
-    //   'http://localhost:3001/sales',
-    //   bodyRequest,
-    // );
+    };
+    const { token } = getData('user');
+    const { data: { sale: { id } } } = await axios.post(
+      'http://localhost:3001/sale',
+      bodyRequest,
+      { headers: { Authorization: token } },
+    );
+    history.push(`/customer/orders/${id}`);
   };
 
   useEffect(() => {
@@ -62,8 +67,9 @@ export default function DetailEntrega() {
             onChange={ handleSeller }
             value={ seller }
           >
+            <option value="select">select</option>
             {sellers?.map((e) => (
-              <option value={ e.name } key={ e.name }>{e.name}</option>
+              <option value={ e.id } key={ e.id }>{e.name}</option>
             ))}
           </select>
 
