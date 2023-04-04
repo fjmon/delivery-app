@@ -21,7 +21,7 @@ const validateName = (req, res, next) => {
   if (!name || typeof name !== 'string') {
     return res.status(400).json({ message: 'Name is required' });
   }
-  if (name.length <= 12) {
+  if (name.length < 12) {
     return res.status(400).json({ message: 'Name must be greater than or equal to 12 characters' });
   }
   next();

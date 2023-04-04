@@ -15,7 +15,6 @@ function Products() {
   const getProducts = async () => {
     try {
       const { data } = await axios.get('http://localhost:3001/products', { });
-      console.log(data);
       setProducts(data.products);
     } catch (err) {
       console.log(err.response.data.message);
@@ -29,7 +28,6 @@ function Products() {
   useEffect(() => {
   }, [cart]);
 
-  console.log(cart);
   return (
     <>
       <NavBarProducts />

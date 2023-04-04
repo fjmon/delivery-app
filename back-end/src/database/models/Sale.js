@@ -13,7 +13,7 @@ const SaleModel = (sequelize, DataTypes) => {
         type: DataTypes.DATE, 
         defaultValue: sequelize.fn('NOW'),
       },
-      status: { type: DataTypes.INTEGER, allowNull: false },
+      status: { type: DataTypes.STRING, allowNull: false },
     },
     { tableName: 'sales', timestamps: false, underscored: true },
   );

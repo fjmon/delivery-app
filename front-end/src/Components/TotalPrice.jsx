@@ -5,9 +5,9 @@ import Context from '../context/Context';
 export default function TotalPrice({ dataTest }) {
   const { cart } = useContext(Context);
   return (
-    <div>
-      <span>R$</span>
-      <button
+    <>
+      <spam>R$</spam>
+      <p
         type="button"
         data-testid={ dataTest }
         disabled={ cart.products.length === 0 }
@@ -16,9 +16,9 @@ export default function TotalPrice({ dataTest }) {
           cart.products
             .reduce((acc, item) => acc + (item[1] * item[2]), 0)
             .toFixed(2).replace('.', ',')}` }
-      </button>
+      </p>
 
-    </div>
+    </>
   );
 }
 

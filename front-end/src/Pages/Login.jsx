@@ -36,19 +36,14 @@ function Login() {
     try {
       const { data } = await axios.post('http://localhost:3001/login', { email, password });
       const { role } = data.user;
-      console.log(role);
       if (role === 'customer') {
-        console.log('entrou aqui');
         history.push('/customer/products');
       }
-      console.log(data);
       setData('user', data.user);
       setData('cart', {
         products: [],
       });
-      console.log(localStorage.getItem('user'));
     } catch (err) {
-      console.log(err.response.data.message);
       setError(err.response.data.message);
     }
   };

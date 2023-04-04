@@ -1,12 +1,17 @@
-// import axios from 'axios';
-import React, { useState } from 'react';
-import { setData } from '../hooks/useLocalStorage';
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import Context from '../context/Context';
+import { getData } from '../hooks/useLocalStorage';
 
 export default function DetailEntrega() {
   const [seller, setSeller] = useState('');
   const [adress, setAdress] = useState('');
   const [number, setNumber] = useState('');
-  const [vendedores] = useState([{ name: 'caren' }, { name: 'maria' }]);
+  const { cart } = useContext(Context);
+  const [sellers, setSellers] = useState([]);
+
+  // falta fazer o select funcionar
 
   const handleAdress = ({ target: { value } }) => {
     setAdress(value);
@@ -17,23 +22,39 @@ export default function DetailEntrega() {
   };
 
   const handleSeller = ({ target: { value } }) => {
-    setSeller(value);
+    setSeller(() => value);
   };
 
-  const getOrder = () => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const history = useHistory();
+
+  const getOrder = async () => {
     const { products } = cart;
-    const order = setData('order', { products, seller, adress, number });
-    console.log(order);
+    const user = getData('user');
+    const bodyRequest = {
+      totalPrice: cart.products.reduce((acc, item) => acc + (item[1] * item[2]), 0),
+      deliveryAddress: adress,
+      deliveryNumber: number,
+      status: 'Pendente',
+      userId: user.id,
+      sellerId: seller,
+      products,
+    };
+    const { token } = getData('user');
+    const { data: { sale: { id } } } = await axios.post(
+      'http://localhost:3001/sale',
+      bodyRequest,
+      { headers: { Authorization: token } },
+    );
+    history.push(`/customer/orders/${id}`);
   };
 
-  // const pessoasVendedoras = async () => {
-  //   const result = await axios.get('localhost:3001/seller', {});
-  //   setVendedores(result);
-  // };
-  // useEffect(() => {
-  //   pessoasVendedoras();
-  // });
+  useEffect(() => {
+    const pessoasVendedoras = async () => {
+      const result = await axios.get('http://localhost:3001/sellers');
+      setSellers(result.data);
+    };
+    pessoasVendedoras();
+  }, []);
 
   return (
     <>
@@ -44,8 +65,12 @@ export default function DetailEntrega() {
             type="text"
             data-testid="customer_checkout__select-seller"
             onChange={ handleSeller }
+            value={ seller }
           >
-            {vendedores?.map((e) => <option key={ e.name }>{e.name}</option>)}
+            <option value="select">select</option>
+            {sellers?.map((e) => (
+              <option value={ e.id } key={ e.id }>{e.name}</option>
+            ))}
           </select>
 
         </label>
