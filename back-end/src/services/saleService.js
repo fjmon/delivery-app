@@ -13,7 +13,11 @@ const addSale = async ({
   const addedSale = await Sale.findByPk(newSale.id);
   return addedSale;
 };
-
+const getSales = async (id) => {
+  const sale = await Sale.findAll({ where: { userId: id } });
+  return sale;
+};
 module.exports = {
   addSale,
+  getSales,
 };

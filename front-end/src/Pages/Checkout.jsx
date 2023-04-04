@@ -3,12 +3,14 @@ import DetailsCheckout from '../Components/DetailsCheckout';
 import DetailsOrder from '../Components/DetailsOrder';
 import Context from '../context/Context';
 import TotalPrice from '../Components/TotalPrice';
+import NavBarProducts from '../Components/NavBarProducts';
 
 export default function Checkout() {
   const { cart } = useContext(Context);
 
   return (
     <>
+      <NavBarProducts />
       <h2>
         Finalizar Pedido
       </h2>

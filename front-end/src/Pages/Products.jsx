@@ -25,8 +25,8 @@ function Products() {
     getProducts();
   }, []);
 
-  useEffect(() => {
-  }, [cart]);
+  // useEffect(() => {
+  // }, [cart]);
 
   return (
     <>
