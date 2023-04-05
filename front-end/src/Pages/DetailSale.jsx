@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+{/*import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NavBarProducts from '../Components/NavBarProducts';
 import { getData } from '../hooks/useLocalStorage';
@@ -80,3 +80,4 @@ export default function DetailSale(props) {
     </>
   );
 }
+*/}
