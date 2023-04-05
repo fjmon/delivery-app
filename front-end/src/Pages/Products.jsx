@@ -25,9 +25,6 @@ function Products() {
     getProducts();
   }, []);
 
-  // useEffect(() => {
-  // }, [cart]);
-
   return (
     <>
       <NavBarProducts />

@@ -11,8 +11,6 @@ export default function DetailEntrega() {
   const { cart } = useContext(Context);
   const [sellers, setSellers] = useState([]);
 
-  // falta fazer o select funcionar
-
   const handleAdress = ({ target: { value } }) => {
     setAdress(value);
   };
