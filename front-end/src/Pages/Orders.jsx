@@ -1,9 +1,9 @@
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { getData } from '../hooks/useLocalStorage';
 import NavBarProducts from '../Components/NavBarProducts';
 
-const numero = 10;
 function Orders() {
   const [pedidos, setPedidos] = useState([]);
   useEffect(() => {
@@ -20,8 +20,7 @@ function Orders() {
       <NavBarProducts />
       {
         (pedidos.map((e) => (
-
-          <div key={ e.id }>
+          <Link to={ `/customer/orders/${e.id}` } key={ e.id }>
             <p>Pedido</p>
             <p data-testid={ `customer_orders__element-order-id-${e.id}` }>{e.id}</p>
             <p
@@ -33,17 +32,16 @@ function Orders() {
             <p
               data-testid={ `customer_orders__element-order-date-${e.id}` }
             >
-              {e.saleDate.slice(0, numero)
-                .replace('-', '/').replace('-', '/')}
-
+              {new Date(e.saleDate).toLocaleDateString('pt-BR')}
             </p>
             <p
               data-testid={ `customer_orders__element-card-price-${e.id}` }
             >
-              {e.totalPrice}
+              {e.totalPrice.replace('.', ',')}
 
             </p>
-          </div>
+
+          </Link>
         )))
       }
     </>
