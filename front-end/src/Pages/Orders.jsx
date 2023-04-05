@@ -9,7 +9,7 @@ function Orders() {
   useEffect(() => {
     const todosPedidos = (async () => {
       const { id } = getData('user');
-      const { data: { sales } } = await axios.get(`http://localhost:3001/sale/${id}`);
+      const { data: { sales } } = await axios.get(`http://localhost:3001/sales/${id}`);
       setPedidos(sales);
     });
     todosPedidos();

@@ -41,7 +41,7 @@ export default function DetailEntrega() {
     };
     const { token } = getData('user');
     const { data: { sale: { id } } } = await axios.post(
-      'http://localhost:3001/sale',
+      'http://localhost:3001/sales',
       bodyRequest,
       { headers: { Authorization: token } },
     );
