@@ -99,9 +99,9 @@ export default function ProductCard({ product }) {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    price: PropTypes.string,
-    urlImage: PropTypes.string,
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    urlImage: PropTypes.string.isRequired,
   }).isRequired,
 };

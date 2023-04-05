@@ -6,7 +6,7 @@ export default function TotalPrice({ dataTest }) {
   const { cart } = useContext(Context);
   return (
     <>
-      <spam>R$</spam>
+      <span>R$</span>
       <p
         type="button"
         data-testid={ dataTest }

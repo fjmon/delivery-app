@@ -7,13 +7,13 @@ export default function NavBarProducts() {
   const [name, setName] = useState('');
 
   const handleExit = () => {
-    localStorage.removeItem('user');
+    localStorage.clear();
     history.push('/login');
   };
   useEffect(() => {
     const local = getData('user');
     setName(local.name);
-  }, [setName]);
+  }, []);
 
   const ROUTE_ELEMENTS = {
     1: 'customer_products__element-navbar-link-products',
@@ -24,11 +24,17 @@ export default function NavBarProducts() {
   return (
     <nav>
       <div>
-        <h3 data-testid={ ROUTE_ELEMENTS[1] }>
-          <Link to="/customer/products">Produtos</Link>
+        <h3>
+          <Link data-testid={ ROUTE_ELEMENTS[1] } to="/customer/products">Produtos</Link>
         </h3>
-        <h3 data-testid={ ROUTE_ELEMENTS[2] }>
-          <Link to="/customer/orders">Meus Pedidos</Link>
+        <h3>
+          <Link
+            data-testid={ ROUTE_ELEMENTS[2] }
+            to="/customer/orders"
+          >
+            Meus Pedidos
+
+          </Link>
         </h3>
         <h3 data-testid={ ROUTE_ELEMENTS[3] }>{ name }</h3>
         <button

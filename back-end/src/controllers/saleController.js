@@ -8,7 +8,17 @@ const addSale = async (req, res, next) => {
     next(error);
   }
 };
+const getSales = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+   const sales = await saleService.getSales(id);
+   res.status(200).json({ sales });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   addSale,
+  getSales,
 };

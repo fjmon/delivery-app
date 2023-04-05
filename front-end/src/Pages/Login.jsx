@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { setData } from '../hooks/useLocalStorage';
+import { getData, setData } from '../hooks/useLocalStorage';
 
 function Login() {
   const history = useHistory();
@@ -31,6 +31,13 @@ function Login() {
     const isPasswordvalid = password.length >= MIN_LENGTH_PASSWORD;
     setDisabled(!(isEmailvalid && isPasswordvalid));
   }, [password, email]);
+
+  useEffect(() => {
+    const user = getData('user');
+    if (user) {
+      history.push('/customer/products');
+    }
+  }, []);
 
   const loginUser = async () => {
     try {

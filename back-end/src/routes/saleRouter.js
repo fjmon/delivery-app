@@ -11,6 +11,7 @@ saleRouter.post(
   saleMiddlewares.verifyParams,
   saleMiddlewares.verifyUsers,
   saleController.addSale,
-  );
+);
+saleRouter.get('/:id', saleController.getSales);
 
 module.exports = saleRouter;
