@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       totalPrice: {
-        type: Sequelize.DOUBLE,
+        type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
         field: 'total_price',  
       },
@@ -27,10 +27,11 @@ module.exports = {
       saleDate: {
         type: Sequelize.DATE,
         allowNull: false,
-        field: 'sale_date',  
+        field: 'sale_date',
+        defaultValue: Sequelize.NOW,
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       userId: {
@@ -47,7 +48,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        field: 'user_id',
+        field: 'seller_id',
         references: {
           model: 'users',
           key: 'id',

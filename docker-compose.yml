@@ -1,36 +1,5 @@
 version: '3'
 services:
-  frontend:
-    build: ./front-end
-    tty: true
-    stdin_open: true
-    depends_on:
-      - backend
-    ports:
-      - 3000:3000
-    networks:
-      - deliveryAppNetWorks
-    volumes:
-      - ./front-end:/app
-  backend:
-    build: ./back-end
-    tty: true
-    stdin_open: true
-    environment:
-      - MYSQL_HOST=localhost
-      - MYSQL_PORT=3306
-      - MYSQL_DB_NAME=delivery-app
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
-      - PORT=3001
-    depends_on:
-      - dbDeliveryApp
-    networks:
-      - deliveryAppNetWorks
-    ports:
-      - 3001:3001
-    volumes:
-      - ./back-end:/app
   dbDeliveryApp:
     image: mysql:8.0.23
     environment:
