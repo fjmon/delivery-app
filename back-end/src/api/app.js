@@ -17,7 +17,7 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
 app.use('/validateToken', tokenRouter);
-app.use('/sale', saleRouter);
+app.use('/sales', saleRouter);
 app.use('/sellers', sellerRouter);
 
 app.use(express.static('public'));

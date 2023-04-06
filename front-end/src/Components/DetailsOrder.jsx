@@ -11,8 +11,6 @@ export default function DetailEntrega() {
   const { cart } = useContext(Context);
   const [sellers, setSellers] = useState([]);
 
-  // falta fazer o select funcionar
-
   const handleAdress = ({ target: { value } }) => {
     setAdress(value);
   };
@@ -41,7 +39,7 @@ export default function DetailEntrega() {
     };
     const { token } = getData('user');
     const { data: { sale: { id } } } = await axios.post(
-      'http://localhost:3001/sale',
+      'http://localhost:3001/sales',
       bodyRequest,
       { headers: { Authorization: token } },
     );

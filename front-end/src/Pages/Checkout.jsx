@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import DetailsCheckout from '../Components/DetailsCheckout';
 import DetailsOrder from '../Components/DetailsOrder';
 import Context from '../context/Context';
@@ -6,7 +7,11 @@ import TotalPrice from '../Components/TotalPrice';
 import NavBarProducts from '../Components/NavBarProducts';
 
 export default function Checkout() {
+  const history = useHistory();
+
   const { cart } = useContext(Context);
+
+  if (!cart.products) history.push('./login');
 
   return (
     <>
@@ -26,12 +31,11 @@ export default function Checkout() {
       </h2>
       <div>
         <p>
-          {' '}
           Total pedido:
-          {' '}
-          <TotalPrice dataTest="customer_checkout__element-order-total-price" />
-
         </p>
+        { cart.products && (
+          <TotalPrice dataTest="customer_checkout__element-order-total-price" />
+        )}
       </div>
       <div>
         <DetailsOrder />
