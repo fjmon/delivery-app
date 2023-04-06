@@ -21,7 +21,7 @@ const getSales = async (req, res, next) => {
 
 const getSellerSales = async (req, res, next) => {
   const { id } = req.params;
-  res.status(200).json({ message: 'teste' });
+  // res.status(200).json({ message: 'teste' });
   
   try {
    const sales = await saleService.getSellerSales(id);
