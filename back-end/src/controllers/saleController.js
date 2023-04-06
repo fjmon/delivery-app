@@ -30,9 +30,21 @@ const getSellerSales = async (req, res, next) => {
     next(error);
   }
 };
+const updateStatus = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+  
+    await saleService.updateStatus(id, status);
+    res.status(204).json({ message: 'ok' });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   addSale,
   getSales,
   getSellerSales,
+  updateStatus,
 };

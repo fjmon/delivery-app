@@ -23,9 +23,13 @@ const getSellerSales = async (id) => {
   const sale = await Sale.findAll({ where: { sellerId: id } });
   return sale;
 };
+const updateStatus = async (id, status) => {
+ await Sale.update({ status }, { where: { id } });
+};
 
 module.exports = {
   addSale,
   getSales,
   getSellerSales,
+  updateStatus,
 };

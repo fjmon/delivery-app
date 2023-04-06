@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory, Link } from 'react-router-dom';
 import { getData } from '../hooks/useLocalStorage';
+import NavBarSeller from '../Components/NavBarSeller';
 
 export default function SellerOrders() {
   const [pedidos, setPedidos] = useState([]);
@@ -29,6 +30,7 @@ export default function SellerOrders() {
 
   return (
     <>
+      <NavBarSeller />
       {
         (pedidos.map((e) => (
           <Link to={ `/seller/orders/${e.id}` } key={ e.id }>
