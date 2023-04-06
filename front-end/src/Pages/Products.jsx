@@ -5,6 +5,7 @@ import Context from '../context/Context';
 import NavBarProducts from '../Components/NavBarProducts';
 import ProductCard from '../Components/ProductCard';
 import TotalPrice from '../Components/TotalPrice';
+import { getData } from '../hooks/useLocalStorage';
 import './Products.css';
 
 function Products() {
@@ -23,6 +24,10 @@ function Products() {
 
   useEffect(() => {
     getProducts();
+    const { role } = getData('user');
+    if (role === 'seller') {
+      history.push('/seller/orders');
+    }
   }, []);
 
   return (

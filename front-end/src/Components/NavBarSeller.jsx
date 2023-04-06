@@ -25,8 +25,8 @@ export default function NavBarSeller() {
   return (
     <nav>
       <div>
-        <h3 data-testid={ ROUTE_ELEMENTS[2] }>
-          <Link to="/seller/orders">Pedidos</Link>
+        <h3>
+          <Link data-testid={ ROUTE_ELEMENTS[2] } to="/seller/orders">Pedidos</Link>
         </h3>
         <h3 data-testid={ ROUTE_ELEMENTS[3] }>{ name }</h3>
         <button
