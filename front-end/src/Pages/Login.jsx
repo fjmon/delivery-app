@@ -11,6 +11,8 @@ function Login() {
   const [error, setError] = useState(null);
   const MIN_LENGTH_PASSWORD = 6;
   console.log('login: zebirita@email.com senha: $#zebirita#$');
+  console.log('login: fulana@deliveryapp.com senha: fulana@123');
+
   const ROUTE_ELEMENTS = {
     1: 'common_login__input-email',
     2: 'common_login__input-password',
@@ -45,6 +47,9 @@ function Login() {
       const { role } = data.user;
       if (role === 'customer') {
         history.push('/customer/products');
+      }
+      if (role === 'seller') {
+        history.push('/seller/orders');
       }
       setData('user', data.user);
       setData('cart', {
