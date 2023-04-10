@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { getData, setData } from '../hooks/useLocalStorage';
+import ShapeTop from '../Components/ShapeTop';
+import ShapeBottom from '../Components/ShapeBottom';
 
 function Login() {
   const history = useHistory();
@@ -60,52 +62,62 @@ function Login() {
     }
   };
   return (
-    <div>
-      <form>
-        <h1>Login</h1>
-        <label htmlFor="email">
-
+    <>
+      <ShapeTop />
+      <form className="m-10 mt-80 flex flex-col text-center self-center">
+        <h1 className="text-5xl font-bold">
+          DELI
+          <span className="text-amber-400 underline">BEER</span>
+          Y 🍺
+        </h1>
+        <div className="flex flex-col text-center m-10 w-96 self-center">
           <input
+            className="border-2 px-2 py-1 rounded my-1"
             type="email"
             data-testid={ ROUTE_ELEMENTS[1] }
-            placeholder="email"
+            placeholder="E-MAIL"
             value={ email }
             onChange={ handleEmail }
           />
-        </label>
-        <label htmlFor="password">
           <input
+            className="border-2 px-2 py-1 rounded my-1"
             type="password"
             data-testid={ ROUTE_ELEMENTS[2] }
-            placeholder="password"
+            placeholder="PASSWORD"
             value={ password }
             onChange={ handlePassword }
           />
-        </label>
-        <button
-          type="button"
-          data-testid={ ROUTE_ELEMENTS[3] }
-          disabled={ isDisabled }
-          onClick={ loginUser }
-        >
-          login
-        </button>
-        <button
-          type="button"
-          data-testid={ ROUTE_ELEMENTS[4] }
-          onClick={ () => history.push('/register') }
-        >
-          Ainda não tenho conta
-        </button>
-        {error && (
-          <p
-            data-testid="common_login__element-invalid-email"
+          <button
+            className="
+            border-2 p-1
+            rounded my-1
+            opacity-60 hover:opacity-95 border-green-500 disabled:border-red-600"
+            type="button"
+            data-testid={ ROUTE_ELEMENTS[3] }
+            disabled={ isDisabled }
+            onClick={ loginUser }
           >
-            {error}
-          </p>
-        )}
+            Entrar
+          </button>
+          <button
+            className="border-2 p-1 rounded my-1 opacity-60 hover:opacity-95 underline"
+            type="button"
+            data-testid={ ROUTE_ELEMENTS[4] }
+            onClick={ () => history.push('/register') }
+          >
+            Ainda não tem conta?
+          </button>
+          {error && (
+            <p
+              data-testid="common_login__element-invalid-email"
+            >
+              {error}
+            </p>
+          )}
+        </div>
       </form>
-    </div>
+      <ShapeBottom />
+    </>
   );
 }
 export default Login;

@@ -6,7 +6,6 @@ import NavBarProducts from '../Components/NavBarProducts';
 import ProductCard from '../Components/ProductCard';
 import TotalPrice from '../Components/TotalPrice';
 import { getData } from '../hooks/useLocalStorage';
-import './Products.css';
 
 function Products() {
   const history = useHistory();
