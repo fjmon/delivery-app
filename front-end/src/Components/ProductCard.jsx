@@ -48,10 +48,10 @@ export default function ProductCard({ product }) {
   }, [quantity]);
 
   return (
-    <div>
+    <div className="w-96 h-auto shadow p-10 m-7 rounded hover:bg-slate-50">
       <img
         data-testid={ `${ROUTE_ELEMENTS[1]}${product.id}` }
-        style={ { width: '20px' } }
+        style={ { width: '5rem' } }
         src={ product.urlImage }
         alt={ product.name }
       />
@@ -59,9 +59,17 @@ export default function ProductCard({ product }) {
         {product.name}
       </h1>
       <p data-testid={ `${ROUTE_ELEMENTS[3]}${product.id}` }>
+        <span>R$</span>
         {`${String(Number(product.price).toFixed(2)).replace('.', ',')}`}
       </p>
       <button
+        className="
+        my-2 text-md
+        bg-gray-50 border border-gray-300 text-gray-900
+        rounded-lg focus:ring-blue-500 focus:border-blue-500
+        block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+        dark:placeholder-gray-400 dark:text-white
+        dark:focus:ring-blue-500 dark:focus:border-blue-500"
         name={ product.name }
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[4]}${product.id}` }
@@ -81,8 +89,22 @@ export default function ProductCard({ product }) {
         value={ quantity }
         onChange={ handleQuantity }
         placeholder="0"
+        className="
+        my-2 text-md
+        bg-gray-50 border border-gray-300 text-gray-900
+        rounded-lg focus:ring-blue-500 focus:border-blue-500
+        block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+        dark:placeholder-gray-400 dark:text-white
+        dark:focus:ring-blue-500 dark:focus:border-blue-500"
       />
       <button
+        className="
+        my-2 text-md
+        bg-gray-50 border border-gray-300 text-gray-900
+        rounded-lg focus:ring-blue-500 focus:border-blue-500
+        block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+        dark:placeholder-gray-400 dark:text-white
+        dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[6]}${product.id}` }
         name={ product.name }

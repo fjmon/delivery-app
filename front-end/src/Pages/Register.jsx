@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import ShapeTop from '../Components/ShapeTop';
+import ShapeBottom from '../Components/ShapeBottom';
 
 export default function Cadastro() {
   const history = useHistory();
@@ -36,60 +38,65 @@ export default function Cadastro() {
   const registerUser = async () => {
     try {
       await axios.post('http://localhost:3001/register', { email, password, name });
-      history.push('/customer/products');
+      history.push('/');
     } catch (err) {
       console.log(err.response.data.message);
       setError(err.response.data.message);
     }
   };
   return (
-    <div>
-      <h1>Cadastro</h1>
-      <form>
-        <label htmlFor="name">
-          Nome
+    <>
+      <ShapeTop />
+      <div className="m-10 mt-80 flex flex-col text-center self-center">
+        <h1 className="text-5xl font-bold">
+          CADASTRO DELI
+          <span className="text-amber-400 underline">BEER</span>
+          Y 🍺
+        </h1>
+        <form className="flex flex-col text-center m-4 w-96 self-center">
           <input
+            className="border-2 px-2 py-1 rounded my-1"
             data-testid={ ROUTE_ELEMENTS[1] }
-            type="name"
-            placeholder="name"
+            type="text"
+            placeholder="Nome"
             onChange={ handleName }
           />
-        </label>
-        <label htmlFor="email">
-          Email
           <input
+            className="border-2 px-2 py-1 rounded my-1"
             data-testid={ ROUTE_ELEMENTS[2] }
             type="email"
-            placeholder="email"
+            placeholder="E-mail"
             onChange={ handleEmail }
           />
-        </label>
-        <label htmlFor="password">
-          Senha
           <input
+            className="border-2 px-2 py-1 rounded my-1"
             data-testid={ ROUTE_ELEMENTS[3] }
             type="password"
-            placeholder="password"
+            placeholder="Senha"
             onChange={ handlePassword }
           />
-        </label>
-        <button
-          data-testid={ ROUTE_ELEMENTS[4] }
-          type="button"
-          disabled={ disabled }
-          onClick={ registerUser }
-        >
-          Cadastrar
-
-        </button>
-      </form>
-      {error && (
-        <p
-          data-testid={ ROUTE_ELEMENTS[5] }
-        >
-          {error}
-        </p>
-      )}
-    </div>
+          <button
+            className="
+            border-2 p-1
+            rounded my-1
+            opacity-60 hover:opacity-95 border-green-500 disabled:border-red-600"
+            data-testid={ ROUTE_ELEMENTS[4] }
+            type="button"
+            disabled={ disabled }
+            onClick={ registerUser }
+          >
+            Cadastrar
+          </button>
+        </form>
+        {error && (
+          <p
+            data-testid={ ROUTE_ELEMENTS[5] }
+          >
+            {error}
+          </p>
+        )}
+      </div>
+      <ShapeBottom />
+    </>
   );
 }

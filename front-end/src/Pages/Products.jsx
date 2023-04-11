@@ -32,8 +32,7 @@ function Products() {
   return (
     <>
       <NavBarProducts />
-      <div className="products">
-
+      <div className="flex flex-wrap justify-center my-5">
         { products.map((product) => (
           <ProductCard product={ product } key={ product.id } />
         )) }
@@ -44,14 +43,13 @@ function Products() {
           onClick={ () => history.push('/customer/checkout') }
           data-testid="customer_products__button-cart"
           disabled={ cart.products.length === 0 }
+          className="fixed bottom-1 right-1 w-44 py-1 rounded-lg border border-gray-900 dark:bg-gray-700 dark:text-white"
         >
           Ver Carrinho:
           <TotalPrice dataTest="customer_products__checkout-bottom-value" />
         </button>
       )}
-
     </>
-
   );
 }
 export default Products;
