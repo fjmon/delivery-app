@@ -44,11 +44,15 @@ function Products() {
           data-testid="customer_products__button-cart"
           disabled={ cart.products.length === 0 }
           className="
+            opacity-80
             fixed bottom-1 right-1 w-44 py-1 rounded-lg
             border border-gray-900 dark:bg-gray-700 dark:text-white
+            disabled:opacity-25
+            cursor-pointer
+            hover:opacity-100
           "
         >
-          Ver Carrinho:
+          {'Ver Carrinho: '}
           <TotalPrice dataTest="customer_products__checkout-bottom-value" />
         </button>
       )}

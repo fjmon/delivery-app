@@ -42,7 +42,7 @@ export default function DetailSale({ match: { params } }) {
   return (
     <>
       <NavBarProducts />
-      <div className="p-4 lg:w-10/12 mx-auto lg:mt-40">
+      <div className="p-0 lg:w-10/12 mx-auto lg:mt-40">
         <div>
           <p className="text-2xl">
             Pedido 000
@@ -99,7 +99,7 @@ export default function DetailSale({ match: { params } }) {
           </button>
         </div>
         <div className="my-7">
-          <table className="w-full lg:text-lg text-left text-gray-500 dark:text-gray-400">
+          <table className="w-full lg:text-lg text-left text-gray-500 dark:text-gray-400 ml-0">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <td className="px-6 py-3">Item</td>
