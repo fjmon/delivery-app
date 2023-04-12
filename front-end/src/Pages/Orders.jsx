@@ -18,8 +18,8 @@ function Orders() {
   return (
     <>
       <NavBarProducts />
-      <h1 className="w-11/12 text-4xl mx-auto mt-0 md:mt-10">Pedidos:</h1>
-      <div className="w-10/12 mx-auto flex justify-start flex-wrap mt-3">
+      <h1 className="w-11/12 md:w-6/12 text-4xl mx-auto mt-0 md:mt-10">Pedidos:</h1>
+      <div className="w-10/12 md:w-6/12 mx-auto flex justify-start flex-wrap mt-3">
         {
           (pedidos.map((e) => (
             <Link
