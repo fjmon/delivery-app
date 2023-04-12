@@ -41,36 +41,45 @@ export default function DetailSale({ match: { params } }) {
     <div>
       <NavBarProducts />
       <div>
-        <p>
-          <span>Pedido 000</span>
+        <p className="text-xl">
+          Pedido 000
           <span
             data-testid="customer_order_details__element-order-details-label-order-id"
           >
             {venda.id}
           </span>
         </p>
-        <p>
+        <p className="text-xl">
           <span>P.Vend: </span>
           <span
             data-testid="customer_order_details__element-order-details-label-seller-name"
           >
             {seller?.name}
           </span>
-        </p>
-        <p
-          data-testid="customer_order_details__element-order-details-label-order-date"
-        >
-          {new Date(venda.saleDate).toLocaleDateString('pt-BR')}
+          {' '}
+          <span
+            data-testid="customer_order_details__element-order-details-label-order-date"
+          >
+            {new Date(venda.saleDate).toLocaleDateString('pt-BR')}
+          </span>
         </p>
         <p
           data-testid={
             `customer_order_details__element-order-details-label-delivery-status
             ${params.id}`
           }
+          className={
+            `text-xl
+            ${venda.status === 'Pendente' ? 'text-red-500' : ''}
+            ${venda.status === 'Em Trânsito' ? 'text-yellow-500' : ''}
+            ${venda.status === 'Preparando' ? 'text-yellow-600' : ''}
+            ${venda.status === 'Entregue' ? 'text-green-400' : ''}`
+          }
         >
           {venda.status}
         </p>
         <button
+          className="border border-black rounded p-1 px-2 disabled:opacity-30"
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           disabled={ venda.status !== 'Em Trânsito' }
@@ -144,7 +153,7 @@ export default function DetailSale({ match: { params } }) {
           }
         </tbody>
       </table>
-      <h3>
+      <h3 className="text-2xl">
         <span>Total: R$</span>
         <span
           data-testid="customer_order_details__element-order-total-price"

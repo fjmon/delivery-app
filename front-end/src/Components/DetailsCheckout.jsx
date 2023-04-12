@@ -23,39 +23,38 @@ export default function DetailsCheckout({ product, index }) {
   };
 
   return (
-    <>
-      <div data-testid={ `${ROUTE_ELEMENTS[1]}${index}` }>
-        <p>
-          {index + 1}
-        </p>
-
-      </div>
-      <p> Descrição </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[2]}${index}` }>
+    <div className="p-3 m-3 shadow border rounded w-96">
+      <p data-testid={ `${ROUTE_ELEMENTS[1]}${index}` }>
+        <span className="text-lg">{'Produto '}</span>
+        {index + 1}
+      </p>
+      <p className="text-xl my-1" data-testid={ `${ROUTE_ELEMENTS[2]}${index}` }>
+        <span className="text-lg">{'Descrição: '}</span>
         {product[3]}
-      </div>
-      <p> Quantidade </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[3]}${index}` }>
+      </p>
+      <p data-testid={ `${ROUTE_ELEMENTS[3]}${index}` }>
+        <span className="text-lg">{'Quantidade: '}</span>
         {product[1]}
-      </div>
-      <p> Valor Unitario </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[4]}${index}` }>
+      </p>
+      <p data-testid={ `${ROUTE_ELEMENTS[4]}${index}` }>
+        <span className="text-lg">Valor Unitario: R$</span>
         {`${String(Number(product[2]).toFixed(2)).replace('.', ',')}`}
-      </div>
-      <p> Subtotal </p>
-      <div data-testid={ `${ROUTE_ELEMENTS[5]}${index}` }>
+      </p>
+      <p data-testid={ `${ROUTE_ELEMENTS[5]}${index}` }>
+        <span className="text-lg">Subtotal: R$</span>
         {(product[2] * product[1]).toFixed(2).replace('.', ',')}
-      </div>
-
+      </p>
       <button
         type="button"
         data-testid={ `${ROUTE_ELEMENTS[6]}${index}` }
         name={ product[3] }
         onClick={ removeProduct }
+        className="
+        border p-1 rounded border-red-600 px-2 my-2 opacity-75 hover:opacity-100"
       >
         Remover Item
       </button>
-    </>
+    </div>
   );
 }
 

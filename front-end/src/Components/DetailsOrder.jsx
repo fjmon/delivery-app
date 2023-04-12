@@ -56,47 +56,55 @@ export default function DetailEntrega() {
 
   return (
     <>
-      <div>
-        <label htmlFor="seller">
-          <p>Pessoa vendedora</p>
+      <div className="lg:flex lg:justify-between">
+        <label className="w-full m-2" htmlFor="seller">
+          <span>Vendedor: </span>
           <select
+            className="w-full mb-3 p-1 border border-black rounded"
             type="text"
             data-testid="customer_checkout__select-seller"
             onChange={ handleSeller }
             value={ seller }
           >
-            <option value="select">select</option>
+            <option value="select">Selecione</option>
             {sellers?.map((e) => (
               <option value={ e.id } key={ e.id }>{e.name}</option>
             ))}
           </select>
-
         </label>
-        <p>Endereço</p>
-        <label htmlFor="address">
+        <br />
+        <label className="w-full m-2" htmlFor="address">
+          Endereço:
           <input
+            className="w-full border border-black rounded mb-3 p-1"
+            placeholder="Rua. Martins Miragaia Dráusio de Camargo, n°1932"
             type="text"
+            id="address"
             data-testid="customer_checkout__input-address"
             onChange={ handleAdress }
           />
         </label>
-        <p>Numero</p>
-        <label htmlFor="number">
+        <br />
+        <label className="w-full m-2" htmlFor="number">
+          Número
           <input
+            id="number"
+            className="w-full border border-black rounded mb-3 p-1"
             type="number"
             data-testid="customer_checkout__input-address-number"
             onChange={ handleNumber }
           />
         </label>
-
+        <br />
       </div>
       <button
+        className="
+        w-full border border-black rounded p-1 opacity-70 hover:opacity-100 mb-3"
         type="button"
         data-testid="customer_checkout__button-submit-order"
         name="Finalizar Pedido"
         onClick={ getOrder }
       >
-        {' '}
         Finalizar Pedido
       </button>
     </>

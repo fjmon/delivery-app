@@ -5,21 +5,23 @@ import Context from '../context/Context';
 export default function TotalPrice({ dataTest }) {
   const { cart } = useContext(Context);
   return (
-    <p
+    <span
       type="button"
       disabled={ cart.products.length === 0 }
     >
-      <span>R$</span>
+      R$
       <span data-testid={ dataTest }>
-
         {
-          `${
-            cart.products
-              .reduce((acc, item) => acc + (item[1] * item[2]), 0)
-              .toFixed(2).replace('.', ',')}`
+          `
+          ${
+    cart.products
+      .reduce((acc, item) => acc + (item[1] * item[2]), 0)
+      .toFixed(2).replace('.', ',')
+    }
+          `
         }
       </span>
-    </p>
+    </span>
   );
 }
 
