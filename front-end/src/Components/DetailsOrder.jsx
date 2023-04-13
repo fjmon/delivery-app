@@ -90,7 +90,7 @@ export default function DetailEntrega() {
           htmlFor="number"
           placeholder="1932"
         >
-          Número
+          Número:
           <input
             id="number"
             className="w-full border border-black rounded mb-3 p-1"
