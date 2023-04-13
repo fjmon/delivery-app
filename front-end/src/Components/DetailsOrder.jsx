@@ -85,7 +85,11 @@ export default function DetailEntrega() {
           />
         </label>
         <br />
-        <label className="w-full m-2" htmlFor="number">
+        <label
+          className="w-full m-2"
+          htmlFor="number"
+          placeholder="1932"
+        >
           Número
           <input
             id="number"
