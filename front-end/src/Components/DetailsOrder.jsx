@@ -77,7 +77,7 @@ export default function DetailEntrega() {
           Endereço:
           <input
             className="w-full border border-black rounded mb-3 p-1"
-            placeholder="Rua. Martins Miragaia Dráusio de Camargo, n°1932"
+            placeholder="Rua. Martins Miragaia Dráusio de Camargo"
             type="text"
             id="address"
             data-testid="customer_checkout__input-address"
